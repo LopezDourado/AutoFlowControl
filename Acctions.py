@@ -11,8 +11,8 @@ class MouseClick:
         mouse_pos = pyautogui.position()
         return mouse_pos
     
-    def mouse_is_clicked(self,buttonMouse):
-        return mouse.is_pressed(button=buttonMouse)
+    def mouse_is_clicked(self,mouseButton):
+        return mouse.is_pressed(button=mouseButton)
     
     def apply(self):
         pyautogui.leftClick(x=self.mouseX,y=self.mouseY)
@@ -23,6 +23,9 @@ class MouseClick:
 class keyboardPress:#in progress
     def __init__(self,key):
         self.key = key
+
+    def keyboard_is_pressed(self,keyButton):
+        return keyboard.is_pressed(button=keyButton)
 
     def apply(self):
         pyautogui.press()
