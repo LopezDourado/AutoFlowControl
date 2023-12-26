@@ -1,91 +1,61 @@
 import flet as ft
 
 
+pageWidth = 600
+pageHeight = 800
+
+
 def interface(page: ft.Page):
     BG = '#041955'
     FWG = '#97b4ff'
     FG = '#3450a1'
     PINK = '#eb06ff'
 
-    row1 = ft.Row([
-        ft.Container(
-            ft.Text('ADD ACTION'),
-            width= 200,
-            height= 50,
-            alignment= ft.alignment.center,
+    def page_resize(e):
+        page.update()
 
-            bgcolor=FG,
-            border_radius=35
-        ),
-        ft.Container(
-            ft.Text('REMOVE ACCTION'),
-            width= 200,
-            height= 50,
-            alignment= ft.alignment.center,
-            
-            bgcolor=FG,
-            border_radius=35
+    page.on_resize = page_resize
+
+    addActButton = ft.ElevatedButton(
+        text="ADD ACTION",
+        col={"sm": 6, "md": 4, "xl": 2}
         )
-    ], alignment=ft.MainAxisAlignment.CENTER)
-
-    row2 = ft.Row([
-        ft.Container(
-        ft.Text('LIST HERE'),
-        width= 350,
-        height= 500,
-        alignment= ft.alignment.center,
-
-        bgcolor=FG,
-        border_radius=35
-        ),
-
-        ft.Container(
-        ft.Text('UP \n AND \n DOWN'),
-        width= 50,
-        height= 200,
-        alignment= ft.alignment.center,
-
-        bgcolor=FG,
-        border_radius=35
-        ),
-
-
-
-    ],alignment=ft.MainAxisAlignment.CENTER)
-
-    row3 = ft.Row([
-        ft.Container(
-        ft.Text('RUN >:)'),
-        width= 200,
-        height= 50,
-        alignment= ft.alignment.center,
-
-        bgcolor=FG,
-        border_radius=35
-        ),
-
-
-
-    ], alignment=ft.MainAxisAlignment.CENTER)
+    removeActButton = ft.ElevatedButton(
+        text="REMOVE ACTION",
+        col={"sm": 6, "md": 4, "xl": 2}
+        )
+    runButton = ft.ElevatedButton(
+        text="RUN >:)",
+        col={"sm": 6, "md": 4, "xl": 2}
+        )
     
-    #action in list
-    container = ft.Container(
-        width= page.width,
-        height= page.height,
-        bgcolor=FG,
-        border_radius=35
+
+    listAcctionsToDo = ft.DataTable(
+        col={"sm": 1, "md": 1, "xl": 1},
+        columns=[    
+                ft.DataColumn(ft.Text("TypeAction")),
+                ft.DataColumn(ft.Text("Acction")),
+                ft.DataColumn(ft.Text("time"), numeric=True),
+            ],
     )
-
-
     
+    row1 = ft.ResponsiveRow(alignment=ft.MainAxisAlignment.CENTER)
+    row2 = ft.ResponsiveRow(alignment=ft.MainAxisAlignment.CENTER)
+    row3 = ft.ResponsiveRow(alignment=ft.MainAxisAlignment.CENTER)
+
+    row1.controls.append(addActButton)
+    row1.controls.append(removeActButton)
+
+    row2.controls.append(listAcctionsToDo)
+
+    row3.controls.append(runButton)
+
+    page_resize(None)
 
     page.add(row1)
     page.add(row2)
     page.add(row3)
-    page.update()
 
-    def check():
-        while True:
-            row2.update()
+    page.update()
 
 ft.app(target=interface)
